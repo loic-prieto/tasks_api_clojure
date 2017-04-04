@@ -1,4 +1,5 @@
 (ns tasks-api.core
+  (:require [tasks-api.api :refer [process]])
   (:gen-class))
 
 (defn -main
