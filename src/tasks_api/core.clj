@@ -2,7 +2,9 @@
   (:gen-class))
 
 (defn -main
-  "I don't do a whole lot ... yet."
-  [url headers content & other_args]
-  (println (str "The asked url is: " url))
+  "Acts as a cli tester for the API"
+  [url method & other_arguments]
+  (
+    println (str "The asked url is: " url)
+  )
 )
