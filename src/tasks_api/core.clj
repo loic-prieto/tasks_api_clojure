@@ -39,7 +39,7 @@
 (defn- loop-api []
   (let [input (read-api)]
     (if (= "quit" input)
-      (print-api "bye")
+      (print "bye")
       (do
         (-> input (eval-api (get-api-router)) print-api)
         (recur)))))
