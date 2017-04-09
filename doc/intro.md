@@ -6,3 +6,14 @@ The REST API itself will be a [Plack](http://plackperl.org/)-like application, d
 be provided a url, http headers and an http body, and will respond based on that neutral information.
 
 This means this app needs a web server that will provide it with the http information it needs.
+
+## Testint interactively
+
+Execute
+```
+lein repl
+```
+and then start the api repl
+```
+(api-repl)
+```
