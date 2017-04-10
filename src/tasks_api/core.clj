@@ -10,26 +10,17 @@
     (println (str "Task " id ": " name))))
 
 (defn print-results
-  [result]
-  (if (seq? result)
-    (when-not (empty? result)
+  [results]
+  (if (seq? results)
+    (when-not (empty? results)
       (do
-        (print-results (first result))
-        (print-results (rest result))))
-    (print-task result)))
-
-(defn -main
-  "Acts as a cli tester for the API"
-  [method uri]
-  (let [router (get-api-router)]
-    (print-results (router (env-from-params method uri)))))
+        (print-results (first results))
+        (print-results (rest results))))
+    (print-task results)))
 
 (defn- eval-api [input router]
   (let [[method uri] (clojure.string/split input #" ")]
     (router (env-from-params method uri))))
-
-(defn- print-api [results]
-  (print-results results))
 
 (defn- read-api []
   (print "api> " )
@@ -37,11 +28,12 @@
   (read-line))
 
 (defn- loop-api []
-  (let [input (read-api)]
-    (if (= "quit" input)
-      (print "bye")
+  (let [ input (read-api)
+         router (get-api-router)]
+    (if (or (= "quit" input) (= "exit" input))
+      (print "bye\n")
       (do
-        (-> input (eval-api (get-api-router)) print-api)
+        (print-results (eval-api input router))
         (recur)))))
 
 (defn api-repl []
@@ -52,3 +44,8 @@
   [method uri]
   (let [router (get-api-router)]
     (print-results (router (env-from-params method uri)))))
+
+(defn -main
+  "Acts as a cli tester for the API"
+  []
+  (api-repl))
