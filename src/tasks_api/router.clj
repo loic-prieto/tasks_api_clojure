@@ -47,8 +47,8 @@
   [& route-list]
   `(_create-router (list ~@route-list)))
 
-(defmacro route [method path handler]
-  `{:method (name '~method)
-    :path ~path
-    :handler #'~handler})
- 
+(defn GET [path handler]
+  {:method "GET"
+   :path path
+   :handler handler})
+
