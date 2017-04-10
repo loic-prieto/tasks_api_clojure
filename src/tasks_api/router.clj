@@ -32,13 +32,23 @@
           (handler)
           (handler (read-string id)))))))
 
-(defn create-router
+(defn _create-router
   "Builds a router from a route definition list.
   The router is a function that for a given environment
-  hash, will execute the appropriate handler"
+  map, will execute the appropriate handler"
   [route-list]
-  (fn [env] 
+  (fn [env]
     (let [method (env :REQUEST_METHOD)
           uri (env :REQUEST_URI)
           normalized-routes (normalize-routes route-list)]
       (execute-handler method uri normalized-routes))))
+
+(defmacro create-router
+  [& route-list]
+  `(_create-router (list ~@route-list)))
+
+(defmacro route [method path handler]
+  `{:method (name '~method)
+    :path ~path
+    :handler #'~handler})
+ 
